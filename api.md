@@ -10,6 +10,7 @@ Request:
 {
   "name": string,
   "phone": string,
+  "rating": number,
   "comment": string
 }
 ```
@@ -21,6 +22,7 @@ Responses:
 ```
 {
   "name": string,
+  "rating": number,
   "comment": string
 }
 ```
@@ -33,6 +35,7 @@ Response:
 [
   {
     "name": string,
+    "rating": number,
     "comment": string
   }
 ]
@@ -65,21 +68,7 @@ Response:
 ### GET product-samples/
 
 ```
-query: page, limit
-[
-  {
-    "name": string,
-    "article": string,
-    "price": number,
-    "discountPrice": number
-  }
-]
-```
-
-### GET product-samples/<category>
-
-```
-query: page, limit
+query: page, limit, category
 [
   {
     "name": string,
