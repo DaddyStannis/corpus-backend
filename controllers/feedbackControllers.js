@@ -1,5 +1,4 @@
-import { Feedback } from "../models/Feedback.js"
-// import controlWrapper from "../decorators/controlWrapper":
+import { Feedback } from "../models/Feedback.js";
 
 export const getAllFeedbacks = async (req, res) => {
   const feedbacks = await Feedback.find();
@@ -20,8 +19,3 @@ export const addFeedback = async (req, res) => {
   };
   res.status(201).json(result);
 };
-
-// module.exports = {
-//   getAllFeedbacks: controlWrapper(getAllFeedbacks),
-//   addFeedback: controlWrapper(addFeedback),
-// };
