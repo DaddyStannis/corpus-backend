@@ -1,10 +1,6 @@
-function handleMongooseError(error, data, next) {
+function handleMongooseError(error, _, next) {
   const { name, code } = error;
   error.status = code === 11000 && name === "MongoServerError" ? 409 : 400;
-  error.message =
-    code === 11000 && name === "MongoServerError"
-      ? "Категорія з такою назвою/артикулом вже є в базі"
-      : "Щось пішло не так, спробуйте ще раз пізніше";
   next();
 }
 

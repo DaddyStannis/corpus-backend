@@ -2,24 +2,27 @@ import express from "express";
 import validateBody from "../decorators/validateBody.js";
 import controlWrapper from "../decorators/controlWrapper.js";
 import upload from "../middlewares/upload.js";
+import isValidID from "../middlewares/isValidID.js";
 import {
   getProductSamples,
-  getProductSamplesByArticle,
-  addProductSamples,
-} from "../controllers/productControllers.js";
-import { addProductSchema } from "../models/ProductSample.js";
+  getProductSampleByID,
+  addProductSample,
+} from "../controllers/productSampleControllers.js";
+import { addProductSchema } from "../models/Product.js";
+import deleteTempPhotos from "../middlewares/deleteTempPhotos.js";
 
 const router = express.Router();
 
 router.get("/", controlWrapper(getProductSamples));
 
-router.get("/:article", controlWrapper(getProductSamplesByArticle));
+router.get("/:id", isValidID, controlWrapper(getProductSampleByID));
 
 router.post(
   "/",
-  upload.array("photoURL", 10),
+  upload.array("photos", 10),
   validateBody(addProductSchema),
-  controlWrapper(addProductSamples)
+  controlWrapper(addProductSample),
+  deleteTempPhotos
 );
 
 export default router;
