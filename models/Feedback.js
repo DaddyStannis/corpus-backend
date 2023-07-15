@@ -4,7 +4,7 @@ import handleMongooseError from "../helpers/handleMongooseError.js";
 
 import Joi from "joi";
 
-const phoneRegexp = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
+const phoneRegexp = /^\+380\d{9}$/;
 
 const feedbackSchema = new Schema(
   {

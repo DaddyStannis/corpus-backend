@@ -7,22 +7,23 @@ import swaggerDocument from "./swagger.json" assert { type: "json" };
 
 import feedbacksRouter from "./routes/feedbackRoutes.js";
 import categoriesRouter from "./routes/categoryRoutes.js";
-import productSampleRouter from "./routes/productSampleRoutes.js"
+import productSampleRouter from "./routes/productSampleRoutes.js";
+import productRouter from "./routes/productRoutes.js";
 
 const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
 app.use(logger(formatsLogger));
-
 app.use(cors());
-
 app.use(express.json());
+app.use(express.static("public"));
 
 app.use("/api/feedbacks", feedbacksRouter);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/api/categories", categoriesRouter);
+app.use("/api/products", productRouter);
 app.use("/api/product-samples", productSampleRouter);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });

@@ -21,9 +21,7 @@ Responses:
 
 ```
 {
-  "name": string,
-  "rating": number,
-  "comment": string
+  "message": "success"
 }
 ```
 
@@ -34,6 +32,7 @@ Response:
 ```
 [
   {
+    "id": string,
     "name": string,
     "rating": number,
     "comment": string
@@ -49,6 +48,7 @@ Response:
 ```
 [
   {
+    "id": string,
     "name": string, // унікальне значення
     "quantity": number // кількість елементів цієї категорії
   }
