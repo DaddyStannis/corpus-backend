@@ -11,6 +11,7 @@ const feedbackSchema = new Schema(
     name: {
       type: String,
       required: [true, "Name is required"],
+      trim: true,
     },
     phone: {
       type: Number,
@@ -20,10 +21,17 @@ const feedbackSchema = new Schema(
     rating: {
       type: Number,
       required: [true, "Rating is required"],
+      min: 1,
+      max: 10,
     },
     comment: {
       type: String,
       required: [true, "Comment is required"],
+      trim: true,
+    },
+    moderated: {
+      type: Boolean,
+      default: false,
     },
   },
   { versionKey: false, timestamps: true }
@@ -32,16 +40,22 @@ const feedbackSchema = new Schema(
 feedbackSchema.post("save", handleMongooseError);
 
 export const addFeedbackSchema = Joi.object({
-  name: Joi.string().required().messages({
+  name: Joi.string().trim().required().messages({
     "any.required": `missing required field "name"`,
   }),
   phone: Joi.string().required().pattern(phoneRegexp).messages({
     "any.required": `missing required field "phone"`,
   }),
-  rating: Joi.number().required().messages({
+  rating: Joi.number().min(1).max(10).required().messages({
     "any.required": `missing required field "rating"`,
   }),
-  comment: Joi.string().required().messages({
+  comment: Joi.string().trim().required().messages({
+    "any.required": `missing required field "comment"`,
+  }),
+});
+
+export const updateFeedbackSchema = Joi.object({
+  comment: Joi.string().trim().required().messages({
     "any.required": `missing required field "comment"`,
   }),
 });
