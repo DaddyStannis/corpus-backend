@@ -22,7 +22,7 @@ const feedbackSchema = new Schema(
       type: Number,
       required: [true, "Rating is required"],
       min: 1,
-      max: 10,
+      max: 5,
     },
     comment: {
       type: String,
@@ -46,7 +46,7 @@ export const addFeedbackSchema = Joi.object({
   phone: Joi.string().required().pattern(phoneRegexp).messages({
     "any.required": `missing required field "phone"`,
   }),
-  rating: Joi.number().min(1).max(10).required().messages({
+  rating: Joi.number().min(1).max(5).required().messages({
     "any.required": `missing required field "rating"`,
   }),
   comment: Joi.string().trim().required().messages({
