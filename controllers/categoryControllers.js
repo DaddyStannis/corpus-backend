@@ -6,6 +6,6 @@ export const getAllCategories = async (req, res) => {
 };
 
 export const addCategory = async (req, res) => {
-  await Category.create({ ...req.body, quantity: 0 });
-  res.status(201).json({ message: "Категорія успішно додана" });
+  const result = await Category.create({ ...req.body });
+  res.status(201).json(result);
 };

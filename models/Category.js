@@ -9,10 +9,6 @@ const categorySchema = new Schema(
       required: [true, "Category name is required"],
       unique: true,
     },
-    quantity: {
-      type: Number,
-      default: 0,
-    },
   },
   { versionKey: false }
 );

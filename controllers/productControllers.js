@@ -28,6 +28,27 @@ export const getProducts = async (req, res) => {
   });
 };
 
+export const getProductSamples = async (req, res) => {
+  const { page = 1, limit = 6, category = null } = req.query;
+  const skip = (page - 1) * limit;
+
+  var query = { sample: true };
+  if (category) {
+    query.category = await Category.findOne({ name: category });
+  }
+
+  const count = await Product.count(query);
+  const result = await Product.find(query, "name article price discountPrice", {
+    skip,
+    limit,
+  });
+
+  res.json({
+    total: count,
+    products: result,
+  });
+};
+
 export const getProductByID = async (req, res) => {
   const { id } = req.params;
   const product = await Product.findById(id);

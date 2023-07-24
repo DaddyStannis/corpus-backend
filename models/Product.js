@@ -57,6 +57,10 @@ const productSchema = new Schema(
       ref: "category",
       required: true,
     },
+    sample: {
+      type: Boolean,
+      default: false,
+    },
     photos: {
       type: [String],
       required: true,
@@ -71,7 +75,7 @@ const productSchema = new Schema(
 
 productSchema.post("save", handleMongooseError);
 
-export const addProductSchema = Joi.object({
+const addProductSchema = Joi.object({
   article: Joi.string().trim().required().messages({
     "any.required": `missing required field "article"`,
   }),
@@ -91,6 +95,7 @@ export const addProductSchema = Joi.object({
   category: Joi.string().required().messages({
     "any.required": `missing required field "category"`,
   }),
+  sample: Joi.boolean(),
   properties: Joi.object({
     manufacturer: Joi.string().trim().min(1).max(40),
     manufacturerCountry: Joi.string().trim().min(1).max(40),
@@ -107,5 +112,8 @@ export const addProductSchema = Joi.object({
   photos: Joi.array(),
 });
 
+export const schemas = {
+  addProductSchema,
+};
+
 export const Product = model("product", productSchema);
-export const ProductSample = model("productSample", productSchema);

@@ -20,13 +20,13 @@ export const addFeedback = async (req, res) => {
   const isNumberExist = await Feedback.findOne({ phone });
 
   if (isNumberExist) {
-    const oneDay = 86400000;
+    const msPerDay = 86400000;
     const now = new Date().getTime();
     const feedbackDate = isNumberExist.createdAt.getTime();
     const difference = now - feedbackDate;
 
-    if (difference < oneDay) {
-      res.json({ message: "Feedback can be added only once per day" });
+    if (difference < msPerDay) {
+      return res.json({ message: "Feedback can be added only once per day" });
     }
   }
   const feedback = await Feedback.create({ ...req.body });
@@ -47,7 +47,7 @@ export const moderatedFeedback = async (req, res) => {
     res.json({ message: "This feedback is not exist" });
   }
 
-  res.json({ message: "Update successful" });
+  res.json({ message: "Feedback has been successfully published" });
 };
 
 export const removeFeedback = async (req, res) => {
