@@ -64,7 +64,7 @@ Response:
 
 ## PRODUCT SAMPLE
 
-### GET products/samples/
+### GET products/samples/ || GET products/
 
 ```
 query: page, limit, category
@@ -102,7 +102,7 @@ query: page, limit, category
 }
 ```
 
-### POST product-samples/
+### POST products/
 
 Request:
 Form data:
