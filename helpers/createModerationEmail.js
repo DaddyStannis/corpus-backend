@@ -16,7 +16,6 @@ const createModerationEmail = (feedback) => {
     <a style="display: block; margin-top: 5px; padding: 10px 15px; text-decoration: none; color: #007bff; text-align: center;" href="${deleteLink}">Видалити</a>
   </div>
 `;
-  console.log(html);
   return { subject, html };
 };
 
