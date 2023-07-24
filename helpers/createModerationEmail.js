@@ -8,7 +8,7 @@ const createModerationEmail = (feedback) => {
   const html = `
   <div style="max-width: 768px; margin: 0 auto; font-family: Arial, sans-serif; background-color: #f9f9f9; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
     <p style="margin: 0; font-size: 16px; font-weight: bold;">Ім'я: ${name}</p>
-    <p style="margin: 5px 0; font-size: 16px; font-weight: bold">Телефон: <a href="tel:${phone}">+${phone}</a></p>
+    <p style="margin: 5px 0; font-size: 16px; font-weight: bold">Телефон: <a href="tel:${phone}">${phone}</a></p>
     <p style="margin: 5px 0; font-size: 16px; font-weight: bold">Комментар: 
       <br />
       <p style="padding: 12px; font-size: 14px; font-weight: normal; line-height: 1.5; border: 1px solid #ccc; border-radius: 5px">${comment}</p></p>
