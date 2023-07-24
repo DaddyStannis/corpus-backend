@@ -39,6 +39,7 @@ const productSchema = new Schema(
       min: 0,
       max: MAX_PRICE,
       type: Number,
+      default: 0,
     },
     colorList: {
       type: [String],

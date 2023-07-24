@@ -21,7 +21,7 @@ Responses:
 
 ```
 {
-  "message": "success"
+  "message": "Feedback will be added after moderation"
 }
 ```
 
@@ -32,7 +32,7 @@ Response:
 ```
 [
   {
-    "id": string,
+    "_id": string,
     "name": string,
     "rating": number,
     "comment": string
@@ -48,9 +48,8 @@ Response:
 ```
 [
   {
-    "id": string,
-    "name": string, // унікальне значення
-    "quantity": number // кількість елементів цієї категорії
+    "_id": string,
+    "name": string,
   }
 ]
 ```
@@ -65,33 +64,41 @@ Response:
 
 ## PRODUCT SAMPLE
 
-### GET product-samples/
+### GET products/samples/
 
 ```
 query: page, limit, category
-[
-  {
-    "name": string,
-    "article": string,
-    "price": number,
-    "discountPrice": number
-  }
-]
+{
+  "total": number,
+  "products": [
+    {
+      "_id": string,
+      "name": string,
+      "article": string,
+      "price": number,
+      "discountPrice": number
+    }
+  ]
+}
 ```
 
-### GET product-samples/<article>
+### GET products/<id>
 
 ```
 {
+  "_id": string,
   "article": string,
   "name": string,
   "price": number,
   "discountPrice": number,
   "colorList": array,
-  "photos": array,
   "description": string,
   "category": string,
-  "properties": {...} // властивості відповідні до обраної категорії
+  "sample": true,
+  "photos": array,
+  "properties": object,
+  "createdAt": date,
+  "updatedAt": date
 }
 ```
 
@@ -110,6 +117,7 @@ photos: binary,
   "colorList": array,
   "description": string,
   "category": string,
+  "sample": bool,
   "properties": {...}
 }
 ```
