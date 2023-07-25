@@ -11,7 +11,7 @@ export const getProducts = async (req, res) => {
   const { page = 1, limit = 6, category = null } = req.query;
   const skip = (page - 1) * limit;
 
-  var query = {};
+  var query = { sample: false };
   if (category) {
     query.category = await Category.findOne({ name: category });
   }
