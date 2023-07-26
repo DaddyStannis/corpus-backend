@@ -1,8 +1,8 @@
 {
-  "name": "neon-light-backend",
+  "name": "korpus-backend",
   "version": "1.0.0",
   "main": "server.js",
-  "repository": "https://github.com/DaddyStannis/neon-light-backend.git",
+  "repository": "https://github.com/DaddyStannis/korpus-backend.git",
   "author": "value=Stanislav Sakun <stanislav.sakun@ukr.net>",
   "license": "MIT",
   "type": "module",
@@ -26,8 +26,5 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "nodemon": "^2.0.22"
-  },
-  "engines": {
-    "node": "16.x"
   }
 }
