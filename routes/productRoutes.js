@@ -31,7 +31,7 @@ router.post(
 );
 
 router.post(
-  "/main-photo/:id",
+  "/:id/main-photo/",
   isValidID,
   validateBody(schemas.setMainPhotoSchema),
   controlWrapper(addMainPhoto)

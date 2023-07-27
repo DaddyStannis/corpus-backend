@@ -121,3 +121,13 @@ photos: binary,
   "properties": {...}
 }
 ```
+
+### POST products/<id>/main-photo/
+
+Request:
+
+```
+{
+  "mainPhotoURL": string,
+}
+```
