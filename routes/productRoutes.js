@@ -6,9 +6,10 @@ import upload from "../middlewares/upload.js";
 import isValidID from "../middlewares/isValidID.js";
 import {
   getProducts,
+  getProductSamples,
   getProductByID,
   addProduct,
-  getProductSamples,
+  addMainPhoto,
 } from "../controllers/productControllers.js";
 import { schemas } from "../models/Product.js";
 import deleteTempPhotos from "../middlewares/deleteTempPhotos.js";
@@ -27,6 +28,13 @@ router.post(
   validateBody(schemas.addProductSchema),
   controlWrapper(addProduct),
   deleteTempPhotos
+);
+
+router.post(
+  "/main-photo/:id",
+  isValidID,
+  validateBody(schemas.setMainPhotoSchema),
+  controlWrapper(addMainPhoto)
 );
 
 export default router;

@@ -1,6 +1,7 @@
 import { Feedback } from "../models/Feedback.js";
 import sendEmail from "../helpers/sendEmail.js";
 import createModerationEmail from "../helpers/createModerationEmail.js";
+import HttpError from "../helpers/HttpError.js";
 
 const { NODEMAILER_EMAIL_TO: to } = process.env;
 
@@ -26,7 +27,7 @@ export const addFeedback = async (req, res) => {
     const difference = now - feedbackDate;
 
     if (difference < msPerDay) {
-      return res.json({ message: "Feedback can be added only once per day" });
+      throw HttpError(429, "Feedback can be added only once per day");
     }
   }
   const feedback = await Feedback.create({ ...req.body });
@@ -44,7 +45,7 @@ export const moderatedFeedback = async (req, res) => {
   });
 
   if (!result) {
-    res.json({ message: "This feedback is not exist" });
+    throw HttpError(404, "This feedback is not exist");
   }
 
   res.json({ message: "Feedback has been successfully published" });
@@ -55,7 +56,7 @@ export const removeFeedback = async (req, res) => {
   const result = await Feedback.findByIdAndRemove(feedbackId);
 
   if (!result) {
-    res.json({ message: "This feedback is not exist" });
+    throw HttpError(404, "This feedback is not exist");
   }
 
   res.json({ message: "Delete successful" });
@@ -66,7 +67,7 @@ export const updateFeedback = async (req, res) => {
   const result = await Feedback.findByIdAndUpdate(feedbackId, req.body);
 
   if (!result) {
-    res.json({ message: "This feedback is not exist" });
+    throw HttpError(404, "This feedback is not exist");
   }
 
   res.json({

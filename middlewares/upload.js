@@ -8,8 +8,8 @@ const FILETYPE_WHITE_LIST = ["image/jpeg", "image/png"];
 const multerConfig = multer.diskStorage({
   destination: TEMP_DIR,
   filename: (req, file, cb) => {
-    const uniquePrefix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, `${uniquePrefix}_${file.originalname}`);
+    const uniquePrefix = Date.now() + "_" + Math.round(Math.random() * 1e9);
+    cb(null, `${uniquePrefix}-${file.originalname.replace(/ +/g, "-")}`);
   },
 });
 

@@ -57,6 +57,12 @@ const productSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "category",
       required: true,
+      validate: {
+        validator: async function (value) {
+          return await this.model("category").findById(value);
+        },
+        message: (props) => `Category with id "${props.value}" doesn't exist`,
+      },
     },
     sample: {
       type: Boolean,
@@ -66,6 +72,13 @@ const productSchema = new Schema(
       type: [String],
       required: true,
     },
+    mainPhotoURL: {
+      type: String,
+      default: null,
+      trim: true,
+      min: 1,
+      max: 50,
+    },
     properties: {
       type: propertiesSchema,
       required: true,
@@ -73,6 +86,8 @@ const productSchema = new Schema(
   },
   { versionKey: false, timestamps: true }
 );
+
+productSchema.index({ category: 1, article: 1 }, { unique: true });
 
 productSchema.post("save", handleMongooseError);
 
@@ -113,8 +128,13 @@ const addProductSchema = Joi.object({
   photos: Joi.array(),
 });
 
+const setMainPhotoSchema = Joi.object({
+  mainPhotoURL: Joi.string().min(1).max(50).required(),
+});
+
 export const schemas = {
   addProductSchema,
+  setMainPhotoSchema,
 };
 
 export const Product = model("product", productSchema);

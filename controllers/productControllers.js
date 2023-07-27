@@ -14,18 +14,23 @@ export const getProducts = async (req, res) => {
   var query = { sample: false };
   if (category) {
     query.category = await Category.findOne({ name: category });
+
+    if (!query.category) {
+      throw HttpError(404, `The category named ${category} doesn't exist`);
+    }
   }
 
-  const count = await Product.count(query);
-  const result = await Product.find(query, "name article price discountPrice", {
-    skip,
-    limit,
-  });
+  const total = await Product.count(query);
+  const products = await Product.find(
+    query,
+    "name article price discountPrice mainPhotoURL",
+    {
+      skip,
+      limit,
+    }
+  );
 
-  res.json({
-    total: count,
-    products: result,
-  });
+  res.json({ total, products });
 };
 
 export const getProductSamples = async (req, res) => {
@@ -35,18 +40,23 @@ export const getProductSamples = async (req, res) => {
   var query = { sample: true };
   if (category) {
     query.category = await Category.findOne({ name: category });
+
+    if (!query.category) {
+      throw HttpError(404, `The category named ${category} doesn't exist`);
+    }
   }
 
-  const count = await Product.count(query);
-  const result = await Product.find(query, "name article price discountPrice", {
-    skip,
-    limit,
-  });
+  const total = await Product.count(query);
+  const products = await Product.find(
+    query,
+    "name article price discountPrice mainPhotoURL",
+    {
+      skip,
+      limit,
+    }
+  );
 
-  res.json({
-    total: count,
-    products: result,
-  });
+  res.json({ total, products });
 };
 
 export const getProductByID = async (req, res) => {
@@ -80,4 +90,29 @@ export const addProduct = async (req, res) => {
   }
 
   res.json(product);
+};
+
+export const addMainPhoto = async (req, res) => {
+  const { mainPhotoURL } = req.body;
+  const { id } = req.params;
+
+  const product = await Product.findById(id);
+
+  if (!product) {
+    throw HttpError(404, `Product with id "${id}" doesn't exist`);
+  }
+
+  const result = product.photos.find((url) => url === mainPhotoURL);
+
+  if (!result) {
+    throw HttpError(
+      404,
+      `Photo with url "${mainPhotoURL}" doesn't exist in product "${product._id}"`
+    );
+  }
+
+  product.mainPhotoURL = mainPhotoURL;
+  await product.save();
+
+  res.json({ message: "Successfully updated" });
 };
