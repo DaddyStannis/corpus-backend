@@ -9,6 +9,10 @@ const categorySchema = new Schema(
       required: [true, "Category name is required"],
       unique: true,
     },
+    link: {
+      type: String,
+      required: [true, "Link is required"],
+    },
   },
   { versionKey: false }
 );
