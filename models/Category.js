@@ -9,7 +9,7 @@ const categorySchema = new Schema(
       required: [true, "Category name is required"],
       unique: true,
     },
-    link: {
+    address: {
       type: String,
       required: [true, "Link is required"],
     },
