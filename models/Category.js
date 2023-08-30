@@ -9,7 +9,7 @@ const categorySchema = new Schema(
       required: [true, "Category name is required"],
       unique: true,
     },
-    address: {
+    link: {
       type: String,
       required: [true, "Link is required"],
     },
@@ -21,6 +21,9 @@ categorySchema.post("save", handleMongooseError);
 
 export const addCategorySchema = Joi.object({
   name: Joi.string().required().messages({
+    "any.required": `missing required field "name"`,
+  }),
+  link: Joi.string().required().messages({
     "any.required": `missing required field "name"`,
   }),
 });
