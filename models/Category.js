@@ -11,7 +11,7 @@ const categorySchema = new Schema(
     },
     text: {
       type: String,
-      required: [true, "Link is required"],
+      required: [true, "Text is required"],
     },
   },
   { versionKey: false }
@@ -23,8 +23,8 @@ export const addCategorySchema = Joi.object({
   name: Joi.string().required().messages({
     "any.required": `missing required field "name"`,
   }),
-  link: Joi.string().required().messages({
-    "any.required": `missing required field "name"`,
+  text: Joi.string().required().messages({
+    "any.required": `missing required field "text"`,
   }),
 });
 
