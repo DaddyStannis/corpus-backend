@@ -13,7 +13,7 @@ export const getProducts = async (req, res) => {
 
   var query = { sample: false };
   if (category) {
-    query.category = await Category.findOne({ name: category });
+    query.category = await Category.findOne({ link: category });
 
     if (!query.category) {
       throw HttpError(404, `The category named ${category} doesn't exist`);
